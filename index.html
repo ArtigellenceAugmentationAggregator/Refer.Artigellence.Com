@@ -1,0 +1,2220 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#050810" />
+<title>Raj Singh · AI Architect · Sydney · Indo-Pacific</title>
+<meta name="description" content="Forwarded by someone you trust. A five-minute briefing on what AI can actually do — and how to put it to work for you, your business, or your venture." />
+<meta name="robots" content="noindex, nofollow" />
+
+<!-- Open Graph (when someone shares the link in WhatsApp etc.) -->
+<meta property="og:title" content="Raj Singh · AI Architect" />
+<meta property="og:description" content="A short, honest briefing on AI — built for people, businesses, and frontier domains. Indo-Pacific." />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="./logo.png" />
+
+<link rel="icon" type="image/png" href="./logo.png" />
+
+<!-- Fonts: Fraunces (display serif, variable, expressive) + Manrope (body, modern sans) + JetBrains Mono (tactical) -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..700,0..100;1,9..144,300..700,0..100&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+/* ---------- TOKENS ---------- */
+:root {
+  --bg:           #050810;
+  --bg-2:         #0a1020;
+  --bg-3:         #0d1428;
+  --card:         rgba(255,255,255,0.025);
+  --card-hover:   rgba(255,255,255,0.045);
+  --card-strong:  rgba(255,255,255,0.06);
+
+  --gold:         #c9a961;
+  --gold-bright:  #e6c989;
+  --gold-soft:    rgba(201,169,97,0.5);
+  --gold-faint:   rgba(201,169,97,0.15);
+
+  --teal:         #3dbdc7;
+  --teal-bright:  #6dd5dd;
+  --teal-soft:    rgba(61,189,199,0.5);
+  --teal-faint:   rgba(61,189,199,0.18);
+
+  --ink:          #e8ecf2;
+  --ink-soft:     #b8c0cc;
+  --ink-mute:     #7e8696;
+  --ink-faint:    #444c5e;
+
+  --border:       rgba(201,169,97,0.18);
+  --border-teal:  rgba(61,189,199,0.20);
+  --border-soft:  rgba(255,255,255,0.06);
+
+  --display:      'Fraunces', 'Cormorant Garamond', Georgia, serif;
+  --sans:         'Manrope', system-ui, sans-serif;
+  --mono:         'JetBrains Mono', ui-monospace, monospace;
+
+  --maxw:         1240px;
+  --gutter:       clamp(20px, 4vw, 56px);
+  --section-y:    clamp(72px, 10vw, 140px);
+}
+
+/* ---------- BASE ---------- */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--ink);
+  font-size: 16px;
+  line-height: 1.6;
+  font-weight: 400;
+  letter-spacing: 0.005em;
+  overflow-x: hidden;
+  min-height: 100vh;
+
+  /* Atmosphere — grid + radial glows, fixed, like the Vcard */
+  background-image:
+    radial-gradient(ellipse 60% 50% at 20% 0%, rgba(61,189,199,0.10), transparent 70%),
+    radial-gradient(ellipse 50% 40% at 85% 30%, rgba(201,169,97,0.07), transparent 70%),
+    radial-gradient(ellipse 70% 50% at 50% 100%, rgba(61,189,199,0.06), transparent 70%),
+    linear-gradient(180deg, var(--bg) 0%, #060a14 100%);
+  background-attachment: fixed;
+}
+
+/* Subtle global grid overlay (matches Vcard) */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+  z-index: 0;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black 30%, transparent 100%);
+}
+
+img { max-width: 100%; display: block; }
+a { color: var(--teal-bright); text-decoration: none; transition: color .2s ease; }
+a:hover { color: var(--gold-bright); }
+
+::selection { background: var(--gold); color: var(--bg); }
+
+/* ---------- TYPOGRAPHY ---------- */
+.display {
+  font-family: var(--display);
+  font-weight: 400;
+  font-variation-settings: "opsz" 144, "SOFT" 30;
+  letter-spacing: -0.02em;
+  line-height: 1.02;
+  color: var(--ink);
+}
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--teal);
+}
+.eyebrow-gold { color: var(--gold); }
+.lead {
+  font-size: clamp(17px, 1.5vw, 19px);
+  line-height: 1.7;
+  color: var(--ink-soft);
+  max-width: 60ch;
+}
+
+/* ---------- LAYOUT ---------- */
+.wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--gutter); position: relative; z-index: 1; }
+
+section { padding: var(--section-y) 0; position: relative; z-index: 1; }
+.section-rule {
+  display: flex; align-items: center; gap: 16px;
+  margin: 0 auto 64px;
+  max-width: var(--maxw);
+  padding: 0 var(--gutter);
+}
+.section-rule .line {
+  flex: 1; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border) 30%, var(--border) 70%, transparent);
+}
+.section-rule .num {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--gold);
+  letter-spacing: 0.2em;
+}
+.section-rule .diamond {
+  color: var(--gold);
+  font-size: 8px;
+  transform: translateY(-1px);
+}
+
+/* ---------- TOP TELEMETRY BAR ---------- */
+.telemetry {
+  position: sticky; top: 0;
+  z-index: 50;
+  border-bottom: 1px solid var(--border-soft);
+  background: rgba(5,8,16,0.7);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+.telemetry-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px var(--gutter);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--ink-mute);
+  max-width: var(--maxw);
+  margin: 0 auto;
+}
+.telemetry-left, .telemetry-right { display: flex; align-items: center; gap: 14px; }
+.telemetry .dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--teal-bright);
+  box-shadow: 0 0 12px var(--teal-bright);
+  animation: pulse 2.2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.55; transform: scale(0.85); }
+}
+.telemetry .sep { color: var(--ink-faint); }
+.telemetry-right .lbl { color: var(--ink-faint); }
+.telemetry-right .val { color: var(--gold); }
+
+@media (max-width: 720px) {
+  .telemetry-inner { font-size: 9.5px; letter-spacing: 0.14em; padding: 10px var(--gutter); }
+  .telemetry-right .hide-mobile { display: none; }
+}
+
+/* WhatsApp pill — sits left of Refer pill */
+.wa-pill {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 7px 14px 7px 12px;
+  border: 1px solid rgba(37, 211, 102, 0.4);
+  border-radius: 100px;
+  background: linear-gradient(180deg, rgba(37, 211, 102, 0.14), rgba(37, 211, 102, 0.04));
+  color: #4eda83;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  transition: all .25s cubic-bezier(.2,.7,.3,1);
+  text-decoration: none;
+}
+.wa-pill:hover {
+  background: #25D366;
+  border-color: #25D366;
+  color: #062a14;
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px -8px rgba(37, 211, 102, 0.5);
+}
+.wa-icon {
+  width: 14px; height: 14px;
+  fill: currentColor;
+  flex-shrink: 0;
+}
+
+/* Card pill — sits between WhatsApp and Refer */
+.card-pill {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 7px 14px 7px 12px;
+  border: 1px solid var(--border-teal);
+  border-radius: 100px;
+  background: linear-gradient(180deg, rgba(61,189,199,0.14), rgba(61,189,199,0.04));
+  color: var(--teal-bright);
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  transition: all .25s cubic-bezier(.2,.7,.3,1);
+  cursor: pointer;
+  font-weight: inherit;
+}
+.card-pill:hover {
+  background: var(--teal);
+  border-color: var(--teal);
+  color: var(--bg);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px -8px rgba(61,189,199,0.5);
+}
+.card-icon {
+  width: 14px; height: 14px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 540px) {
+  .wa-pill { padding: 6px 10px; gap: 0; }
+  .wa-pill .wa-label { display: none; }
+  .card-pill { padding: 6px 10px; gap: 0; }
+  .card-pill .card-label { display: none; }
+}
+
+/* Refer pill in telemetry bar */
+.refer-pill {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 7px 14px 7px 12px;
+  border: 1px solid var(--gold);
+  border-radius: 100px;
+  background: linear-gradient(180deg, rgba(201,169,97,0.12), rgba(201,169,97,0.04));
+  color: var(--gold-bright);
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  transition: all .25s cubic-bezier(.2,.7,.3,1);
+  position: relative;
+}
+.refer-pill::before {
+  content: '';
+  position: absolute; inset: -1px;
+  border-radius: 100px;
+  box-shadow: 0 0 0 0 rgba(201,169,97,0.45);
+  animation: pillGlow 3s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes pillGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(201,169,97,0); }
+  50% { box-shadow: 0 0 0 4px rgba(201,169,97,0.10); }
+}
+.refer-pill:hover {
+  background: var(--gold);
+  color: var(--bg);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px -8px rgba(201,169,97,0.5);
+}
+.refer-pill .rp-icon { font-size: 9px; color: var(--gold); transition: color .25s; }
+.refer-pill .rp-amt { color: var(--gold-bright); font-weight: 600; letter-spacing: 0.1em; }
+.refer-pill:hover .rp-icon,
+.refer-pill:hover .rp-amt { color: var(--bg); }
+@media (max-width: 540px) {
+  .refer-pill { padding: 6px 10px; gap: 7px; font-size: 9.5px; letter-spacing: 0.12em; }
+  .refer-pill .rp-label { display: none; }
+}
+
+/* ---------- HERO ---------- */
+.hero {
+  padding-top: clamp(64px, 10vw, 120px);
+  padding-bottom: clamp(64px, 8vw, 96px);
+  position: relative;
+}
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: clamp(40px, 6vw, 96px);
+  align-items: start;
+}
+@media (max-width: 960px) { .hero-grid { grid-template-columns: 1fr; } }
+
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 12px;
+  padding: 8px 14px;
+  border: 1px solid var(--border-teal);
+  border-radius: 100px;
+  background: rgba(61,189,199,0.05);
+  margin-bottom: 32px;
+}
+.hero-eyebrow .pulse {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--teal-bright);
+  box-shadow: 0 0 10px var(--teal);
+  animation: pulse 2s ease-in-out infinite;
+}
+.hero-eyebrow span {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.22em;
+  color: var(--teal-bright);
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  font-family: var(--display);
+  font-weight: 300;
+  font-size: clamp(40px, 6.6vw, 84px);
+  line-height: 0.98;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+  margin-bottom: 28px;
+  font-variation-settings: "opsz" 144, "SOFT" 50;
+}
+.hero h1 em {
+  font-style: italic;
+  color: var(--gold-bright);
+  font-weight: 300;
+  font-variation-settings: "opsz" 144, "SOFT" 100;
+}
+.hero h1 .sm {
+  display: block;
+  font-size: 0.55em;
+  color: var(--ink-soft);
+  font-style: normal;
+  font-weight: 300;
+  margin-top: 18px;
+  letter-spacing: -0.015em;
+}
+
+.hero-sub {
+  font-size: clamp(16px, 1.5vw, 18px);
+  line-height: 1.7;
+  color: var(--ink-soft);
+  max-width: 52ch;
+  margin-bottom: 40px;
+}
+
+.hero-meta {
+  display: flex; flex-wrap: wrap; gap: 10px;
+  margin-bottom: 36px;
+}
+.chip {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 7px 12px;
+  border: 1px solid var(--border);
+  color: var(--gold);
+  border-radius: 4px;
+  background: rgba(201,169,97,0.04);
+}
+.chip.teal { color: var(--teal); border-color: var(--border-teal); background: rgba(61,189,199,0.04); }
+
+.hero-cta {
+  display: inline-flex; align-items: center; gap: 14px;
+  padding: 16px 26px;
+  background: var(--gold);
+  color: var(--bg);
+  border-radius: 4px;
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: all .25s ease;
+  border: 1px solid var(--gold);
+}
+.hero-cta:hover {
+  background: var(--gold-bright);
+  color: var(--bg);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px -8px rgba(201,169,97,0.4);
+}
+.hero-cta .arrow { transition: transform .25s ease; }
+.hero-cta:hover .arrow { transform: translateX(4px); }
+
+/* Hero right column — identity card */
+.hero-card {
+  border: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+  padding: 32px;
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+}
+.hero-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold) 50%, transparent);
+}
+.hero-card-logo {
+  width: 96px; height: 96px;
+  border-radius: 14px;
+  background: radial-gradient(circle at 50% 40%, rgba(61,189,199,0.18), rgba(5,8,16,0.6) 80%);
+  border: 1px solid var(--border-teal);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 24px;
+  padding: 0;
+  overflow: hidden;
+  box-shadow: 0 8px 24px -8px rgba(0,0,0,0.6), inset 0 0 24px rgba(61,189,199,0.08);
+}
+.hero-card-logo img { width: 100%; height: 100%; object-fit: cover; border-radius: 14px; }
+.hero-card-title {
+  font-family: var(--display);
+  font-size: 30px;
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: -0.015em;
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+.hero-card-title .acc { color: var(--gold-bright); }
+.hero-card-role {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 24px;
+}
+.hero-card-rows { display: flex; flex-direction: column; gap: 12px; padding-top: 20px; border-top: 1px dashed var(--border-soft); }
+.hero-card-row { display: flex; gap: 14px; align-items: baseline; }
+.hero-card-row .k {
+  font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em;
+  color: var(--ink-mute); text-transform: uppercase;
+  min-width: 64px;
+}
+.hero-card-row .v { color: var(--ink); font-size: 14.5px; }
+.hero-card-row .v a { color: var(--teal-bright); border-bottom: 1px dotted transparent; transition: border-color .2s; }
+.hero-card-row .v a:hover { border-bottom-color: var(--teal-bright); color: var(--gold-bright); }
+
+/* Forwarded-by note */
+.forwarded {
+  margin-top: 24px;
+  padding: 14px 18px;
+  border-left: 2px solid var(--gold);
+  background: rgba(201,169,97,0.06);
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+  display: none;
+}
+.forwarded.show { display: block; }
+.forwarded .lbl { color: var(--gold); margin-right: 8px; }
+
+/* ---------- SECTION: WHY ---------- */
+.why {
+  background: linear-gradient(180deg, transparent, rgba(255,255,255,0.012), transparent);
+}
+.why-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: clamp(36px, 5vw, 80px);
+  align-items: start;
+}
+@media (max-width: 860px) { .why-grid { grid-template-columns: 1fr; gap: 32px; } }
+
+.why h2 {
+  font-family: var(--display);
+  font-weight: 300;
+  font-style: italic;
+  font-size: clamp(34px, 4.4vw, 56px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.why h2 .acc { color: var(--gold-bright); font-style: italic; }
+
+.why-body p {
+  font-size: 17px;
+  line-height: 1.75;
+  color: var(--ink-soft);
+  margin-bottom: 22px;
+}
+.why-body p strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+.why-body p:last-child { margin-bottom: 0; }
+
+/* ---------- SECTION: STACK ---------- */
+.stack-intro {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  margin-bottom: 56px;
+  align-items: end;
+}
+@media (max-width: 860px) { .stack-intro { grid-template-columns: 1fr; gap: 24px; } }
+.stack-intro h2 {
+  font-family: var(--display);
+  font-weight: 300;
+  font-size: clamp(36px, 5vw, 64px);
+  line-height: 1.04;
+  letter-spacing: -0.022em;
+}
+.stack-intro h2 em {
+  font-style: italic;
+  color: var(--gold-bright);
+  font-weight: 300;
+}
+
+.stack-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+@media (max-width: 760px) { .stack-grid { grid-template-columns: 1fr; } }
+
+.track {
+  position: relative;
+  border: 1px solid var(--border-soft);
+  background: var(--card);
+  padding: 32px;
+  border-radius: 6px;
+  transition: all .35s cubic-bezier(.2,.7,.3,1);
+  overflow: hidden;
+}
+.track::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-soft), transparent);
+  opacity: 0;
+  transition: opacity .35s ease;
+}
+.track:hover {
+  border-color: var(--border);
+  background: var(--card-hover);
+  transform: translateY(-3px);
+  box-shadow: 0 18px 40px -20px rgba(0,0,0,0.6);
+}
+.track:hover::before { opacity: 1; }
+
+.track-head {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  margin-bottom: 14px;
+}
+.track-tag {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.22em;
+  color: var(--ink-mute);
+  text-transform: uppercase;
+}
+.track-status {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.18em;
+  color: var(--teal);
+  text-transform: uppercase;
+}
+.track-status .d {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--teal); box-shadow: 0 0 8px var(--teal);
+}
+.track h3 {
+  font-family: var(--display);
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  margin-bottom: 6px;
+  color: var(--ink);
+}
+.track h3 .it { font-style: italic; color: var(--gold-bright); }
+.track-sub {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--teal);
+  margin-bottom: 18px;
+  text-transform: uppercase;
+}
+.track-desc {
+  color: var(--ink-soft);
+  font-size: 15px;
+  line-height: 1.65;
+  margin-bottom: 22px;
+}
+.track-links {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  padding-top: 18px;
+  border-top: 1px dashed var(--border-soft);
+}
+.track-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 10px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  border: 1px solid var(--border-soft);
+  border-radius: 3px;
+  color: var(--ink-soft);
+  transition: all .2s ease;
+}
+.track-link:hover {
+  border-color: var(--gold);
+  color: var(--gold-bright);
+  background: rgba(201,169,97,0.06);
+}
+.track-link .di { color: var(--gold); }
+
+/* ---------- SECTION: AUDIENCE ---------- */
+.audience-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+@media (max-width: 980px) { .audience-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .audience-grid { grid-template-columns: 1fr; } }
+
+.aud {
+  border: 1px solid var(--border-soft);
+  background: var(--card);
+  padding: 28px 22px;
+  border-radius: 6px;
+  transition: all .3s ease;
+  position: relative;
+}
+.aud:hover { border-color: var(--border-teal); background: var(--card-hover); transform: translateY(-2px); }
+.aud-num {
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: 0.22em; color: var(--gold);
+  margin-bottom: 18px;
+}
+.aud h4 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin-bottom: 10px;
+}
+.aud p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+
+/* ---------- SECTION: FORM ---------- */
+.form-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: clamp(36px, 5vw, 72px);
+  align-items: start;
+}
+@media (max-width: 960px) { .form-wrap { grid-template-columns: 1fr; } }
+
+.form-side h2 {
+  font-family: var(--display);
+  font-weight: 300;
+  font-size: clamp(36px, 5vw, 60px);
+  line-height: 1.04;
+  letter-spacing: -0.022em;
+  margin-bottom: 22px;
+}
+.form-side h2 em { font-style: italic; color: var(--gold-bright); font-weight: 300; }
+.form-side p {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--ink-soft);
+  margin-bottom: 14px;
+  max-width: 38ch;
+}
+.form-side .promise {
+  margin-top: 36px;
+  padding: 22px;
+  border: 1px solid var(--border-teal);
+  border-radius: 6px;
+  background: rgba(61,189,199,0.04);
+}
+.form-side .promise .lbl {
+  font-family: var(--mono);
+  font-size: 10.5px; letter-spacing: 0.22em;
+  color: var(--teal); text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.form-side .promise p {
+  margin: 0;
+  font-size: 14.5px;
+  color: var(--ink);
+}
+
+/* Form */
+form.briefing {
+  border: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.01));
+  border-radius: 8px;
+  padding: clamp(28px, 4vw, 44px);
+  position: relative;
+}
+form.briefing::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+.form-status {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-bottom: 18px;
+  margin-bottom: 28px;
+  border-bottom: 1px dashed var(--border-soft);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.form-status .lhs { color: var(--ink-mute); }
+.form-status .rhs { color: var(--teal); display: inline-flex; align-items: center; gap: 8px; }
+.form-status .rhs .d { width: 6px; height: 6px; border-radius: 50%; background: var(--teal); box-shadow: 0 0 8px var(--teal); animation: pulse 2s ease-in-out infinite; }
+
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 22px; }
+@media (max-width: 600px) { .row { grid-template-columns: 1fr; } }
+
+.field { display: flex; flex-direction: column; }
+.field label {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-bottom: 10px;
+}
+.field label .req { color: var(--gold); margin-left: 4px; }
+
+.field input[type="text"],
+.field input[type="email"],
+.field input[type="tel"],
+.field textarea {
+  background: rgba(0,0,0,0.25);
+  border: 1px solid var(--border-soft);
+  border-radius: 4px;
+  padding: 14px 14px;
+  font-family: var(--sans);
+  font-size: 15px;
+  color: var(--ink);
+  transition: all .2s ease;
+  width: 100%;
+  font-weight: 400;
+}
+.field textarea { min-height: 110px; resize: vertical; line-height: 1.55; }
+.field input::placeholder, .field textarea::placeholder {
+  color: var(--ink-faint);
+  font-weight: 300;
+}
+.field input:focus, .field textarea:focus {
+  outline: none;
+  border-color: var(--teal);
+  background: rgba(61,189,199,0.04);
+  box-shadow: 0 0 0 3px rgba(61,189,199,0.10);
+}
+
+.radio-group {
+  display: flex; flex-direction: column; gap: 8px;
+  margin-bottom: 22px;
+}
+.radio-group > label.grp-label {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-bottom: 4px;
+}
+.radio-group > label.grp-label .req { color: var(--gold); margin-left: 4px; }
+
+.opt {
+  display: flex; align-items: center; gap: 12px;
+  padding: 13px 16px;
+  border: 1px solid var(--border-soft);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all .2s ease;
+  background: rgba(0,0,0,0.2);
+  font-size: 14.5px;
+  color: var(--ink-soft);
+}
+.opt:hover { border-color: var(--border-teal); color: var(--ink); background: rgba(61,189,199,0.03); }
+.opt input { accent-color: var(--teal); width: 14px; height: 14px; }
+.opt input:checked + span { color: var(--ink); }
+.opt:has(input:checked) {
+  border-color: var(--teal);
+  background: rgba(61,189,199,0.06);
+  color: var(--ink);
+}
+
+.consent {
+  display: flex; align-items: flex-start; gap: 12px;
+  margin: 8px 0 24px;
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  line-height: 1.5;
+  cursor: pointer;
+}
+.consent input { accent-color: var(--gold); width: 14px; height: 14px; margin-top: 3px; flex-shrink: 0; }
+.consent a { border-bottom: 1px dotted var(--teal-soft); }
+
+.submit-row {
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 18px;
+  padding-top: 24px;
+  border-top: 1px dashed var(--border-soft);
+  flex-wrap: wrap;
+}
+.submit-meta {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.16em;
+  color: var(--ink-mute);
+  text-transform: uppercase;
+}
+button.submit-btn {
+  display: inline-flex; align-items: center; gap: 14px;
+  padding: 16px 28px;
+  background: var(--gold);
+  color: var(--bg);
+  border: none;
+  border-radius: 4px;
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 13.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all .25s ease;
+}
+button.submit-btn:hover {
+  background: var(--gold-bright);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 36px -10px rgba(201,169,97,0.45);
+}
+button.submit-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+button.submit-btn .arrow { transition: transform .25s ease; }
+button.submit-btn:hover .arrow { transform: translateX(5px); }
+
+/* Form success/error states */
+.form-result {
+  display: none;
+  padding: 24px;
+  border-radius: 6px;
+  margin-top: 20px;
+  font-size: 14.5px;
+  line-height: 1.6;
+}
+.form-result.show { display: block; }
+.form-result.ok { background: rgba(61,189,199,0.08); border: 1px solid var(--border-teal); color: var(--ink); }
+.form-result.err { background: rgba(255,90,90,0.08); border: 1px solid rgba(255,90,90,0.25); color: var(--ink); }
+.form-result strong { color: var(--gold-bright); }
+
+/* ---------- SECTION: REFER & EARN ---------- */
+.refer-section {
+  background:
+    radial-gradient(ellipse 60% 70% at 50% 50%, rgba(201,169,97,0.04), transparent 70%);
+}
+.refer-intro {
+  text-align: center;
+  max-width: 780px;
+  margin: 0 auto 64px;
+}
+.refer-intro h2 {
+  font-family: var(--display);
+  font-weight: 300;
+  font-size: clamp(34px, 5vw, 58px);
+  line-height: 1.04;
+  letter-spacing: -0.022em;
+  margin-bottom: 26px;
+}
+.refer-intro h2 em {
+  font-style: italic;
+  color: var(--gold-bright);
+  font-weight: 300;
+}
+.refer-intro p.lead {
+  font-size: clamp(16px, 1.5vw, 19px);
+  line-height: 1.7;
+  color: var(--ink-soft);
+  margin: 0 auto;
+  max-width: 56ch;
+}
+.refer-intro p.lead strong {
+  color: var(--gold-bright);
+  font-weight: 600;
+}
+
+.refer-flow {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr;
+  gap: 20px;
+  align-items: stretch;
+  max-width: 1040px;
+  margin: 0 auto 56px;
+}
+@media (max-width: 860px) {
+  .refer-flow {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    max-width: 520px;
+  }
+  .rf-arrow { transform: rotate(90deg); padding: 4px 0; justify-self: center; }
+}
+
+.rf-step {
+  border: 1px solid var(--border-soft);
+  background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.01));
+  padding: 32px 26px;
+  border-radius: 6px;
+  text-align: left;
+  position: relative;
+  transition: all .3s ease;
+}
+.rf-step::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-soft), transparent);
+  opacity: 0.4;
+}
+.rf-step.highlight {
+  border-color: var(--border);
+  background: linear-gradient(180deg, rgba(201,169,97,0.08), rgba(201,169,97,0.02));
+}
+.rf-step.highlight::before {
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 1;
+}
+.rf-step:hover {
+  transform: translateY(-3px);
+  border-color: var(--border);
+}
+.rf-num {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.22em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 22px;
+}
+.rf-step h4 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 26px;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  margin-bottom: 12px;
+}
+.rf-step.highlight h4 {
+  color: var(--gold-bright);
+  font-style: italic;
+}
+.rf-step p {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+.rf-step p strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.rf-arrow {
+  display: flex; align-items: center; justify-content: center;
+  color: var(--gold-soft);
+  font-family: var(--mono);
+  font-size: 22px;
+  user-select: none;
+}
+
+.refer-cta {
+  text-align: center;
+  padding-top: 8px;
+}
+.refer-cta .rc-eyebrow {
+  display: block;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-bottom: 20px;
+}
+.refer-cta .rc-btn {
+  display: inline-flex; align-items: center; gap: 14px;
+  padding: 16px 28px;
+  background: var(--gold);
+  color: var(--bg);
+  border-radius: 4px;
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 13.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: all .25s ease;
+  border: 1px solid var(--gold);
+}
+.refer-cta .rc-btn:hover {
+  background: var(--gold-bright);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 36px -10px rgba(201,169,97,0.45);
+  color: var(--bg);
+}
+.refer-cta .rc-btn .arrow { transition: transform .25s ease; }
+.refer-cta .rc-btn:hover .arrow { transform: translateX(5px); }
+
+.refer-footnote {
+  margin-top: 36px;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
+  color: var(--ink-mute);
+  text-transform: uppercase;
+  line-height: 1.8;
+}
+
+/* ---------- SECTION: FOUNDER CARD ---------- */
+.founder {
+  border-top: 1px solid var(--border-soft);
+  background: linear-gradient(180deg, rgba(255,255,255,0.012), transparent);
+}
+.founder-grid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: clamp(28px, 4vw, 56px);
+  align-items: start;
+}
+@media (max-width: 760px) { .founder-grid { grid-template-columns: 1fr; } }
+
+.founder-logo {
+  width: clamp(140px, 16vw, 200px);
+  height: clamp(140px, 16vw, 200px);
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: radial-gradient(circle at 30% 30%, rgba(61,189,199,0.20), rgba(5,8,16,0.95) 75%);
+  padding: 6px;
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.founder-logo::before {
+  content: '';
+  position: absolute; inset: -6px;
+  border: 1px dashed var(--border);
+  border-radius: 50%;
+  animation: rotate 60s linear infinite;
+}
+@keyframes rotate { to { transform: rotate(360deg); } }
+.founder-logo img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+
+.founder-name {
+  font-family: var(--display);
+  font-weight: 300;
+  font-size: clamp(36px, 5vw, 58px);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  margin-bottom: 6px;
+}
+.founder-name em {
+  font-style: italic;
+  color: var(--gold-bright);
+  font-weight: 300;
+}
+.founder-role {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.22em;
+  color: var(--teal);
+  text-transform: uppercase;
+  margin-bottom: 22px;
+}
+.founder-bio {
+  font-size: 15.5px;
+  line-height: 1.7;
+  color: var(--ink-soft);
+  margin-bottom: 28px;
+  max-width: 56ch;
+}
+
+.principles {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  margin-bottom: 30px;
+}
+.principle {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  background: rgba(201,169,97,0.04);
+}
+.principle .d { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); }
+.principle.teal { color: var(--teal); border-color: var(--border-teal); background: rgba(61,189,199,0.04); }
+.principle.teal .d { background: var(--teal); }
+
+.founder-links {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+@media (max-width: 540px) { .founder-links { grid-template-columns: 1fr; } }
+
+.flink {
+  display: flex; align-items: center; gap: 14px;
+  padding: 14px 18px;
+  border: 1px solid var(--border-soft);
+  border-radius: 4px;
+  background: var(--card);
+  transition: all .25s ease;
+  font-size: 14px;
+  color: var(--ink-soft);
+}
+.flink:hover {
+  border-color: var(--gold);
+  background: rgba(201,169,97,0.05);
+  color: var(--ink);
+  transform: translateX(4px);
+}
+.flink .ic {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--gold);
+  font-weight: 600;
+  min-width: 24px;
+}
+.flink .label {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.2em;
+  color: var(--ink-mute);
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+.flink .val { font-family: var(--sans); font-size: 14.5px; color: var(--ink); }
+.flink .col { display: flex; flex-direction: column; flex: 1; }
+.flink .arr { color: var(--ink-faint); transition: all .25s ease; }
+.flink:hover .arr { color: var(--gold); transform: translateX(3px); }
+
+.flink.primary { border-color: var(--border); background: rgba(201,169,97,0.05); }
+.flink.primary .val { color: var(--gold-bright); }
+
+/* ---------- FOOTER ---------- */
+footer {
+  border-top: 1px solid var(--border-soft);
+  padding: 48px var(--gutter) 56px;
+  margin-top: 40px;
+  position: relative;
+  z-index: 1;
+}
+.footer-inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  align-items: end;
+}
+@media (max-width: 720px) { .footer-inner { grid-template-columns: 1fr; gap: 18px; } }
+
+.footer-block { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; color: var(--ink-mute); line-height: 1.9; }
+.footer-block .k { color: var(--ink-faint); }
+.footer-block .v { color: var(--ink-soft); }
+.footer-block strong { color: var(--gold); font-weight: 500; letter-spacing: 0.18em; }
+.footer-right { text-align: right; }
+@media (max-width: 720px) { .footer-right { text-align: left; } }
+
+/* ---------- REVEAL ANIMATIONS ---------- */
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity .9s cubic-bezier(.2,.7,.3,1), transform .9s cubic-bezier(.2,.7,.3,1); }
+.reveal.in { opacity: 1; transform: none; }
+.reveal.d1 { transition-delay: .08s; }
+.reveal.d2 { transition-delay: .16s; }
+.reveal.d3 { transition-delay: .24s; }
+.reveal.d4 { transition-delay: .32s; }
+.reveal.d5 { transition-delay: .40s; }
+
+/* Hero reveals on load */
+@keyframes riseIn {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: none; }
+}
+.hero .anim { opacity: 0; animation: riseIn .9s cubic-bezier(.2,.7,.3,1) forwards; }
+.hero .anim.a0 { animation-delay: 0s; }
+.hero .anim.a1 { animation-delay: .15s; }
+.hero .anim.a2 { animation-delay: .30s; }
+.hero .anim.a3 { animation-delay: .45s; }
+.hero .anim.a4 { animation-delay: .60s; }
+.hero .anim.a5 { animation-delay: .75s; }
+.hero .anim.a6 { animation-delay: .90s; }
+.hero .anim.a7 { animation-delay: 1.05s; }
+
+/* My Projects block — top of hero */
+.mp-block {
+  margin-bottom: 36px;
+  padding-bottom: 28px;
+  border-bottom: 1px dashed var(--border-soft);
+}
+.mp-btn {
+  display: inline-flex; align-items: center; gap: 14px;
+  padding: 12px 18px 12px 16px;
+  background: linear-gradient(180deg, rgba(201,169,97,0.08), rgba(201,169,97,0.02));
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--ink);
+  transition: all .25s cubic-bezier(.2,.7,.3,1);
+  text-decoration: none;
+}
+.mp-btn:hover {
+  border-color: var(--gold);
+  background: linear-gradient(180deg, rgba(201,169,97,0.16), rgba(201,169,97,0.06));
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px -10px rgba(201,169,97,0.4);
+  color: var(--ink);
+}
+.mp-btn .mp-icon {
+  font-family: var(--mono);
+  font-size: 18px;
+  color: var(--gold);
+  line-height: 1;
+}
+.mp-btn .mp-text { display: flex; flex-direction: column; line-height: 1.2; }
+.mp-btn .mp-label {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--ink);
+  letter-spacing: 0.02em;
+}
+.mp-btn .mp-meta {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-top: 3px;
+}
+.mp-btn .mp-arrow {
+  color: var(--gold);
+  font-family: var(--mono);
+  font-size: 14px;
+  transition: transform .25s ease;
+  margin-left: 4px;
+}
+.mp-btn:hover .mp-arrow { transform: translate(2px, -2px); }
+
+.mp-tagline {
+  margin-top: 18px;
+  font-family: var(--display);
+  font-weight: 300;
+  font-size: clamp(17px, 1.7vw, 21px);
+  line-height: 1.35;
+  color: var(--ink-soft);
+  letter-spacing: -0.005em;
+  font-variation-settings: "opsz" 144, "SOFT" 80;
+}
+.mp-tagline em {
+  font-style: italic;
+  color: var(--gold-bright);
+  font-weight: 300;
+}
+
+/* Visually-hidden helper for honeypot */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0);
+  white-space: nowrap; border: 0;
+}
+
+/* Loading placeholder when logo image fails */
+.fallback-logo {
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--display);
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--gold);
+  background: linear-gradient(135deg, rgba(61,189,199,0.15), rgba(201,169,97,0.10));
+  border-radius: inherit;
+}
+
+/* ---------- BUSINESS CARD MODAL ---------- */
+.card-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  transition: opacity .3s ease;
+}
+.card-modal.open {
+  display: flex;
+  animation: cardFadeIn .35s ease forwards;
+}
+@keyframes cardFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.card-modal-backdrop {
+  position: absolute; inset: 0;
+  background: rgba(2, 5, 12, 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  cursor: pointer;
+}
+.card-modal-content {
+  position: relative;
+  z-index: 1;
+  max-width: 720px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: clamp(24px, 4vw, 40px);
+  background: linear-gradient(180deg, var(--bg-2), var(--bg));
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: 0 40px 100px -20px rgba(0,0,0,0.85);
+  animation: cardSlideUp .4s cubic-bezier(.2,.7,.3,1);
+}
+@keyframes cardSlideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: none; }
+}
+.card-modal-content::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  border-radius: 10px 10px 0 0;
+}
+.card-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 22px;
+  padding-bottom: 18px;
+  border-bottom: 1px dashed var(--border-soft);
+}
+.card-modal-eyebrow {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.card-close {
+  background: none;
+  border: 1px solid var(--border-soft);
+  color: var(--ink-soft);
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all .2s ease;
+  font-family: var(--sans);
+  font-weight: 300;
+  line-height: 1;
+  padding: 0;
+}
+.card-close:hover {
+  background: var(--gold);
+  color: var(--bg);
+  border-color: var(--gold);
+  transform: rotate(90deg);
+}
+.card-face-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-bottom: 10px;
+  display: flex; align-items: center; gap: 10px;
+}
+.card-face-label::before {
+  content: '◆';
+  color: var(--gold);
+  font-size: 8px;
+}
+.card-stack {
+  display: flex; flex-direction: column;
+  gap: 28px;
+}
+.card-stack img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid var(--border-soft);
+  box-shadow: 0 16px 40px -16px rgba(0,0,0,0.7);
+  display: block;
+}
+.card-modal-footer {
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1px dashed var(--border-soft);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.card-modal-footer .hint {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.16em;
+  color: var(--ink-mute);
+  text-transform: uppercase;
+}
+.card-modal-footer .actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.card-modal-footer .actions a {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--teal-bright);
+  padding: 6px 10px;
+  border: 1px solid var(--border-teal);
+  border-radius: 3px;
+  background: rgba(61,189,199,0.04);
+  transition: all .2s ease;
+  text-decoration: none;
+}
+.card-modal-footer .actions a:hover {
+  border-color: var(--teal);
+  background: rgba(61,189,199,0.12);
+  color: var(--ink);
+}
+body.modal-open { overflow: hidden; }
+</style>
+</head>
+<body>
+
+<!-- ============ TELEMETRY BAR ============ -->
+<div class="telemetry">
+  <div class="telemetry-inner">
+    <div class="telemetry-left">
+      <span class="dot"></span>
+      <span>BRIEFING · TRK-REFERRAL · LIVE</span>
+    </div>
+    <div class="telemetry-right">
+      <a href="https://wa.me/61469313323" target="_blank" rel="noopener" class="wa-pill" aria-label="WhatsApp Raj directly">
+        <svg class="wa-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413"/>
+        </svg>
+        <span class="wa-label">WhatsApp</span>
+      </a>
+      <button type="button" class="card-pill" data-action="open-card" aria-label="Open business card">
+        <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="2.5" y="5" width="19" height="14" rx="2"/>
+          <line x1="2.5" y1="10" x2="21.5" y2="10"/>
+          <line x1="7" y1="15" x2="11" y2="15"/>
+        </svg>
+        <span class="card-label">Card</span>
+      </button>
+      <a href="#refer" class="refer-pill">
+        <span class="rp-icon">◆</span>
+        <span class="rp-label">Refer · Earn</span>
+        <span class="rp-amt">A$500</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="mp-block anim a0">
+          <a href="./Raj_Singh_Founder_Signature.pdf" target="_blank" rel="noopener" class="mp-btn">
+            <span class="mp-icon">▤</span>
+            <span class="mp-text">
+              <span class="mp-label">My Projects</span>
+              <span class="mp-meta">12 live · PDF dossier</span>
+            </span>
+            <span class="mp-arrow">↗</span>
+          </a>
+          <p class="mp-tagline">
+            <em>Anything you can imagine</em> &mdash; I'll architect it.
+          </p>
+        </div>
+
+        <div class="hero-eyebrow anim a1">
+          <span class="pulse"></span>
+          <span>You've been forwarded this · Read in five minutes</span>
+        </div>
+
+        <h1 class="anim a2">
+          You've heard about <em>AI.</em>
+          <span class="sm">Now meet someone who builds with it.</span>
+        </h1>
+
+        <p class="hero-sub anim a3">
+          I'm Raj. From Sydney, I architect AI systems for people, businesses, and frontier domains across the Indo-Pacific. If someone you trust sent you here — they think we should talk.
+        </p>
+
+        <div class="hero-meta anim a4">
+          <span class="chip">Sydney · Australia</span>
+          <span class="chip teal">AI-Native</span>
+          <span class="chip teal">Anti-Extractive</span>
+          <span class="chip">Human-Governed</span>
+        </div>
+
+        <a href="#briefing" class="hero-cta anim a5">
+          Start a conversation
+          <span class="arrow">→</span>
+        </a>
+
+        <div class="forwarded anim a6" id="forwarded-by">
+          <span class="lbl">FORWARDED BY</span>
+          <span id="forwarded-name"></span>
+        </div>
+      </div>
+
+      <aside class="hero-card anim a7">
+        <div class="hero-card-logo">
+          <img src="./logo.png" alt="Artigellence" onerror="this.outerHTML='<div class=&quot;fallback-logo&quot;>A</div>'" />
+        </div>
+        <div class="hero-card-title">Rajdeep <span class="acc">'Raj'</span> Singh</div>
+        <div class="hero-card-role">AI Architect · Orchestrator</div>
+
+        <div class="hero-card-rows">
+          <div class="hero-card-row">
+            <span class="k">Venture</span>
+            <span class="v"><a href="https://aaa.artigellence.com" target="_blank" rel="noopener">aaa.artigellence.com</a></span>
+          </div>
+          <div class="hero-card-row">
+            <span class="k">Stack</span>
+            <span class="v"><a href="https://www.rajsingh.online" target="_blank" rel="noopener">rajsingh.online</a></span>
+          </div>
+          <div class="hero-card-row">
+            <span class="k">Email</span>
+            <span class="v"><a href="mailto:raj@artigellence.com">raj@artigellence.com</a></span>
+          </div>
+          <div class="hero-card-row">
+            <span class="k">Phone</span>
+            <span class="v"><a href="tel:+61469313323">+61 469 313 323</a></span>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHY THIS PAGE EXISTS ============ -->
+<div class="section-rule">
+  <span class="num">/ / 0 1</span>
+  <span class="diamond">◆</span>
+  <span class="eyebrow">The honest version</span>
+  <span class="line"></span>
+</div>
+
+<section class="why">
+  <div class="wrap">
+    <div class="why-grid">
+      <div class="reveal">
+        <h2>The thing about <span class="acc">AI</span> right now.</h2>
+      </div>
+      <div class="why-body reveal d1">
+        <p>
+          AI is the biggest shift in how work gets done since the internet arrived. Most people are either ignoring it, fearing it, or playing with it as a toy.
+        </p>
+        <p>
+          A small number are quietly using it to <strong>compress weeks into hours</strong>, build entire products solo, and create leverage that didn't exist five years ago.
+        </p>
+        <p>
+          You don't need to understand the technology. You need someone who does — and who'll tell you the truth about what's worth doing for <em>your</em> situation, your time, and your budget. No jargon. No hype. No upsell theatre.
+        </p>
+        <p>
+          That's what this is.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THE WORK / STACK ============ -->
+<div class="section-rule">
+  <span class="num">/ / 0 2</span>
+  <span class="diamond">◆</span>
+  <span class="eyebrow">The work</span>
+  <span class="line"></span>
+</div>
+
+<section>
+  <div class="wrap">
+    <div class="stack-intro">
+      <div class="reveal">
+        <h2>Four tracks. <em>One operator.</em></h2>
+      </div>
+      <p class="lead reveal d1">
+        Each one solves a different problem. All of them share the same operating principles. Tap any link to see live.
+      </p>
+    </div>
+
+    <div class="stack-grid">
+
+      <article class="track reveal">
+        <div class="track-head">
+          <span class="track-tag">TRK-01</span>
+          <span class="track-status"><span class="d"></span>Active</span>
+        </div>
+        <h3>Artigellence <span class="it">Augmentation · Aggregator</span></h3>
+        <div class="track-sub">5 forks live</div>
+        <p class="track-desc">
+          Agents, automation, and dedicated AI for everyday business problems. The flagship.
+        </p>
+        <div class="track-links">
+          <a class="track-link" href="https://aaa.artigellence.com" target="_blank" rel="noopener"><span class="di">◆</span>AAA · Agents & Automation</a>
+          <a class="track-link" href="https://aarambh.space" target="_blank" rel="noopener"><span class="di">◆</span>Aarambh · 1-on-1</a>
+          <a class="track-link" href="https://artigellence.com" target="_blank" rel="noopener"><span class="di">◆</span>Prep Engine</a>
+          <a class="track-link" href="https://aahaar.artigellence.com" target="_blank" rel="noopener"><span class="di">◆</span>Aahaar · Nutrition</a>
+          <a class="track-link" href="https://vaani.artigellence.com" target="_blank" rel="noopener"><span class="di">◆</span>Vaani · Voice</a>
+        </div>
+      </article>
+
+      <article class="track reveal d1">
+        <div class="track-head">
+          <span class="track-tag">TRK-02</span>
+          <span class="track-status"><span class="d"></span>Active</span>
+        </div>
+        <h3>Mindlytics <span class="it">AI Growth</span></h3>
+        <div class="track-sub">2 forks live</div>
+        <p class="track-desc">
+          For individuals figuring out their personal AI roadmap. Tools, podcast, and a clear path forward.
+        </p>
+        <div class="track-links">
+          <a class="track-link" href="https://tools.mindlytics.xyz" target="_blank" rel="noopener"><span class="di">◆</span>Tools · Roadmap</a>
+          <a class="track-link" href="https://mindlytics.xyz" target="_blank" rel="noopener"><span class="di">◆</span>Core · Podcast</a>
+        </div>
+      </article>
+
+      <article class="track reveal d2">
+        <div class="track-head">
+          <span class="track-tag">TRK-03</span>
+          <span class="track-status"><span class="d"></span>Active</span>
+        </div>
+        <h3>synARKa <span class="it">The Consensus Engine</span></h3>
+        <div class="track-sub">2 forks live</div>
+        <p class="track-desc">
+          Geopolitical intelligence focused on rare earths, defence, and logistics across the Indo-Pacific.
+        </p>
+        <div class="track-links">
+          <a class="track-link" href="https://synarka.pro" target="_blank" rel="noopener"><span class="di">◆</span>Intelligence</a>
+          <a class="track-link" href="https://insights.synarka.pro" target="_blank" rel="noopener"><span class="di">◆</span>Insights · Briefings</a>
+        </div>
+      </article>
+
+      <article class="track reveal d3">
+        <div class="track-head">
+          <span class="track-tag">TRK-04</span>
+          <span class="track-status"><span class="d"></span>Active</span>
+        </div>
+        <h3>Dedicated <span class="it">Vertical Platforms</span></h3>
+        <div class="track-sub">3 deployments live</div>
+        <p class="track-desc">
+          Domain-specific AI for farmers, sound healers, and demand aggregation. Real users, real outcomes.
+        </p>
+        <div class="track-links">
+          <a class="track-link" href="https://www.madhoganj.cloud" target="_blank" rel="noopener"><span class="di">◆</span>Madhoganj · Agriculture</a>
+          <a class="track-link" href="https://www.tarang.guru" target="_blank" rel="noopener"><span class="di">◆</span>Tarang · Sound</a>
+          <a class="track-link" href="https://www.gdxchange.store" target="_blank" rel="noopener"><span class="di">◆</span>GD Xchange · Demand</a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ AUDIENCE ============ -->
+<div class="section-rule">
+  <span class="num">/ / 0 3</span>
+  <span class="diamond">◆</span>
+  <span class="eyebrow">Who this is for</span>
+  <span class="line"></span>
+</div>
+
+<section>
+  <div class="wrap">
+    <div class="stack-intro" style="margin-bottom: 48px;">
+      <div class="reveal">
+        <h2 style="font-size: clamp(34px, 4.6vw, 56px);">If any of this <em>sounds like you.</em></h2>
+      </div>
+      <p class="lead reveal d1">
+        You don't need to be a technologist. You don't need a pitch deck. You just need to recognise yourself in one of these.
+      </p>
+    </div>
+
+    <div class="audience-grid">
+      <div class="aud reveal">
+        <div class="aud-num">/ / 01</div>
+        <h4>The business owner</h4>
+        <p>You know AI is coming for your industry. You don't know where to start. You don't have time to figure it out alone.</p>
+      </div>
+      <div class="aud reveal d1">
+        <div class="aud-num">/ / 02</div>
+        <h4>The professional</h4>
+        <p>Your work could be 10× with the right tools. You're stuck on basic ChatGPT and want the real version.</p>
+      </div>
+      <div class="aud reveal d2">
+        <div class="aud-num">/ / 03</div>
+        <h4>The founder</h4>
+        <p>You're building something. You need an AI-native architect on call — not a junior dev who calls APIs.</p>
+      </div>
+      <div class="aud reveal d3">
+        <div class="aud-num">/ / 04</div>
+        <h4>The curious one</h4>
+        <p>You want the unfiltered version of what's actually happening. Not LinkedIn theatre. A real conversation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FORM ============ -->
+<div class="section-rule">
+  <span class="num">/ / 0 4</span>
+  <span class="diamond">◆</span>
+  <span class="eyebrow eyebrow-gold">Start a conversation</span>
+  <span class="line"></span>
+</div>
+
+<section id="briefing">
+  <div class="wrap">
+    <div class="form-wrap">
+
+      <div class="form-side reveal">
+        <h2>A quick form. <em>A real reply.</em></h2>
+        <p>
+          No sales script. No funnel. I read every submission personally and reply within 48 hours — usually faster.
+        </p>
+        <p>
+          If your situation is a fit, we'll set up a free 30-minute call. If it isn't, I'll tell you straight and point you somewhere useful.
+        </p>
+
+        <div class="promise">
+          <div class="lbl">/ / The promise</div>
+          <p>You won't get added to a list. You won't get a generic deck. You'll get one human reply from me, written for your specific situation.</p>
+        </div>
+      </div>
+
+      <form class="briefing reveal d1" id="briefing-form" novalidate>
+
+        <div class="form-status">
+          <span class="lhs">REQUEST · BRIEFING</span>
+          <span class="rhs"><span class="d"></span>Receiving</span>
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label for="name">Full name <span class="req">*</span></label>
+            <input type="text" id="name" name="name" placeholder="e.g. Priya Sharma" required autocomplete="name" />
+          </div>
+          <div class="field">
+            <label for="mobile">Mobile number <span class="req">*</span></label>
+            <input type="tel" id="mobile" name="mobile" placeholder="+61 4XX XXX XXX" required autocomplete="tel" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label for="email">Email <span class="req">*</span></label>
+            <input type="email" id="email" name="email" placeholder="name@email.com" required autocomplete="email" />
+          </div>
+          <div class="field">
+            <label for="location">City &amp; country <span class="req">*</span></label>
+            <input type="text" id="location" name="location" placeholder="e.g. Sydney, Australia" required />
+          </div>
+        </div>
+
+        <div class="radio-group">
+          <label class="grp-label">Which describes you best? <span class="req">*</span></label>
+          <label class="opt"><input type="radio" name="profile" value="Business owner / operator" required /><span>Business owner or operator</span></label>
+          <label class="opt"><input type="radio" name="profile" value="Professional / employee" /><span>Professional or employee</span></label>
+          <label class="opt"><input type="radio" name="profile" value="Founder / building something" /><span>Founder — building something</span></label>
+          <label class="opt"><input type="radio" name="profile" value="Curious / personal interest" /><span>Curious — personal interest</span></label>
+          <label class="opt"><input type="radio" name="profile" value="Other" /><span>Something else</span></label>
+        </div>
+
+        <div class="radio-group">
+          <label class="grp-label">Current AI use <span class="req">*</span></label>
+          <label class="opt"><input type="radio" name="ai_use" value="I don't use AI yet" required /><span>I don't use AI yet</span></label>
+          <label class="opt"><input type="radio" name="ai_use" value="I use ChatGPT casually" /><span>I use ChatGPT (or similar) casually</span></label>
+          <label class="opt"><input type="radio" name="ai_use" value="I use multiple tools regularly" /><span>I use multiple tools regularly</span></label>
+          <label class="opt"><input type="radio" name="ai_use" value="Fairly advanced" /><span>I'm fairly advanced already</span></label>
+        </div>
+
+        <div class="radio-group">
+          <label class="grp-label">Preferred contact <span class="req">*</span></label>
+          <label class="opt"><input type="radio" name="contact_pref" value="WhatsApp / SMS" required /><span>WhatsApp or SMS</span></label>
+          <label class="opt"><input type="radio" name="contact_pref" value="Email" /><span>Email</span></label>
+          <label class="opt"><input type="radio" name="contact_pref" value="Phone call" /><span>Phone call</span></label>
+        </div>
+
+        <div class="field" style="margin-bottom: 22px;">
+          <label for="goal">What would you want from this? <span style="color: var(--ink-faint); letter-spacing: 0.06em;">(optional · in your own words)</span></label>
+          <textarea id="goal" name="goal" placeholder="A sentence or two is plenty. e.g. 'I run a small accounting practice and want to automate client onboarding.'"></textarea>
+        </div>
+
+        <label class="consent">
+          <input type="checkbox" name="consent" required />
+          <span>I'm happy for Raj to contact me about this enquiry. My details won't be shared, sold, or added to any list. <a href="https://www.rajsingh.online" target="_blank" rel="noopener">More about Raj</a></span>
+        </label>
+
+        <!-- Hidden referral tracking (captured silently from ?ref= URL parameter) -->
+        <input type="hidden" name="referrer" id="referrer" value="direct" />
+        <input type="hidden" name="page" value="referral-landing" />
+        <input type="hidden" name="submitted_at" id="submitted_at" value="" />
+
+        <!-- Honeypot for spam bots -->
+        <div class="visually-hidden" aria-hidden="true">
+          <label for="website">Website (leave blank)</label>
+          <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
+        </div>
+
+        <div class="submit-row">
+          <span class="submit-meta">▣ Encrypted · 48h response</span>
+          <button type="submit" class="submit-btn" id="submit-btn">
+            Send briefing request
+            <span class="arrow">→</span>
+          </button>
+        </div>
+
+        <div class="form-result ok" id="result-ok">
+          <strong>Received.</strong> Your request landed. I'll reply within 48 hours — usually within a day. Check your email (including spam) for my message from <em>raj@artigellence.com</em>.
+        </div>
+        <div class="form-result err" id="result-err">
+          <strong>Something glitched.</strong> The form couldn't submit automatically. Please email me directly at <a href="mailto:raj@artigellence.com">raj@artigellence.com</a> with your details and I'll respond personally.
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ REFER & EARN ============ -->
+<div class="section-rule">
+  <span class="num">/ / 0 5</span>
+  <span class="diamond">◆</span>
+  <span class="eyebrow eyebrow-gold">Refer &amp; Earn</span>
+  <span class="line"></span>
+</div>
+
+<section id="refer" class="refer-section">
+  <div class="wrap">
+    <div class="refer-intro reveal">
+      <h2>If this would help <em>someone you know</em> &mdash; send it on.</h2>
+      <p class="lead">
+        If they hire me on a basic retainer or more, I send you <strong>A$500</strong>. Once. Clean.
+        <br />No funnels, no MLM, no tiers, no chase.
+      </p>
+    </div>
+
+    <div class="refer-flow">
+      <div class="rf-step reveal">
+        <div class="rf-num">/ / 01 · Share</div>
+        <h4>Forward your link</h4>
+        <p>I'll set up a personalised referral URL with your name. One link. Forward to anyone.</p>
+      </div>
+      <div class="rf-arrow" aria-hidden="true">→</div>
+      <div class="rf-step reveal d1">
+        <div class="rf-num">/ / 02 · They engage</div>
+        <h4>They hire me</h4>
+        <p>Threshold: a basic retainer of <strong>A$4,500</strong> or more. No conversion games.</p>
+      </div>
+      <div class="rf-arrow" aria-hidden="true">→</div>
+      <div class="rf-step reveal d2 highlight">
+        <div class="rf-num">/ / 03 · You earn</div>
+        <h4>A$500 — paid clean</h4>
+        <p>Bank transfer, PayID, BPAY &mdash; your call. Sent within <strong>24 hours</strong> of their payment clearing.</p>
+      </div>
+    </div>
+
+    <div class="refer-cta reveal d3">
+      <span class="rc-eyebrow">Want your link?</span>
+      <a href="mailto:raj@artigellence.com?subject=Referral%20partner%20link%20request&amp;body=Hi%20Raj%2C%0A%0AI'd%20like%20a%20personalised%20referral%20link.%0A%0AName%3A%20%0AHow%20I%20know%20you%3A%20" class="rc-btn">
+        Email me — get your link
+        <span class="arrow">→</span>
+      </a>
+      <p class="refer-footnote">
+        ◆ Anti-extractive · Human-governed · One-time per referred client · Paid on actuals, not promises
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOUNDER CARD ============ -->
+<div class="section-rule">
+  <span class="num">/ / 0 6</span>
+  <span class="diamond">◆</span>
+  <span class="eyebrow">Identity</span>
+  <span class="line"></span>
+</div>
+
+<section class="founder">
+  <div class="wrap">
+    <div class="founder-grid">
+      <div class="founder-logo reveal">
+        <img src="./logo.png" alt="Artigellence Aggregator" onerror="this.outerHTML='<div class=&quot;fallback-logo&quot;>RS</div>'" />
+      </div>
+
+      <div class="reveal d1">
+        <div class="founder-name">Rajdeep <em>'Raj'</em> Singh</div>
+        <div class="founder-role">Founder · AI Architect · Orchestrator</div>
+        <p class="founder-bio">
+          Sydney-based AI architect operating across the Indo-Pacific. Founder of <strong style="color:var(--ink);">Artigellence</strong>, <strong style="color:var(--ink);">synARKa</strong>, <strong style="color:var(--ink);">Mindlytics</strong>, and dedicated vertical platforms in agriculture, sound healing, and demand aggregation. Trade name registered. Twelve live properties. One operator.
+        </p>
+
+        <div class="principles">
+          <span class="principle teal"><span class="d"></span>Agnostic</span>
+          <span class="principle teal"><span class="d"></span>AI-Native</span>
+          <span class="principle"><span class="d"></span>Anti-Extractive</span>
+          <span class="principle"><span class="d"></span>Human-Governed</span>
+        </div>
+
+        <div class="founder-links">
+
+          <a class="flink primary" href="https://aaa.artigellence.com" target="_blank" rel="noopener">
+            <span class="ic">◆</span>
+            <span class="col">
+              <span class="label">Primary venture</span>
+              <span class="val">aaa.artigellence.com</span>
+            </span>
+            <span class="arr">→</span>
+          </a>
+
+          <a class="flink" href="https://www.rajsingh.online" target="_blank" rel="noopener">
+            <span class="ic">◇</span>
+            <span class="col">
+              <span class="label">Full stack</span>
+              <span class="val">rajsingh.online</span>
+            </span>
+            <span class="arr">→</span>
+          </a>
+
+          <a class="flink" href="https://drive.google.com/drive/folders/1Arjx8AM2XPqsYSpstjpNvEiuKiBiC-Y2?usp=drive_link" target="_blank" rel="noopener">
+            <span class="ic">▤</span>
+            <span class="col">
+              <span class="label">Founder dossier · Drive</span>
+              <span class="val">Open folder</span>
+            </span>
+            <span class="arr">→</span>
+          </a>
+
+          <a class="flink" href="mailto:raj@artigellence.com">
+            <span class="ic">✉</span>
+            <span class="col">
+              <span class="label">Email</span>
+              <span class="val">raj@artigellence.com</span>
+            </span>
+            <span class="arr">→</span>
+          </a>
+
+          <a class="flink" href="tel:+61469313323">
+            <span class="ic">☏</span>
+            <span class="col">
+              <span class="label">Phone · Australia</span>
+              <span class="val">+61 469 313 323</span>
+            </span>
+            <span class="arr">→</span>
+          </a>
+
+          <a class="flink" href="https://wa.me/61469313323" target="_blank" rel="noopener">
+            <span class="ic">▷</span>
+            <span class="col">
+              <span class="label">WhatsApp</span>
+              <span class="val">Open chat</span>
+            </span>
+            <span class="arr">→</span>
+          </a>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-block">
+      <strong>REGISTERED BUSINESS</strong><br />
+      <span class="v">Artigellence Augmentation Aggregator</span><br />
+      <span class="k">ABN</span> <span class="v">83 988 690 362</span><br />
+      <span class="k">LOCATION</span> <span class="v">Sydney NSW · Australia</span><br />
+      <span class="k">PHONE</span> <span class="v">+61 469 313 323</span>
+    </div>
+    <div class="footer-block footer-right">
+      <strong>FIND ONLINE</strong><br />
+      <span class="k">GOOGLE</span> <span class="v">"Artigellence Augmentation Aggregator"</span><br />
+      <span class="k">CHATGPT</span> <span class="v">"AAA by Artigellence"</span><br />
+      <br />
+      <span class="v">© 2026 Raj Singh · Not an offer of securities</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ BUSINESS CARD MODAL ============ -->
+<div class="card-modal" id="card-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="card-modal-title">
+  <div class="card-modal-backdrop" data-action="close-card" aria-hidden="true"></div>
+  <div class="card-modal-content" role="document">
+    <div class="card-modal-header">
+      <span class="card-modal-eyebrow" id="card-modal-title">/ / Business Card · Front &amp; Back</span>
+      <button type="button" class="card-close" data-action="close-card" aria-label="Close business card">&times;</button>
+    </div>
+
+    <div class="card-stack">
+      <div>
+        <div class="card-face-label">Front · Identity</div>
+        <img src="./Vcard_Front.png" alt="Raj Singh — AI Architect &amp; Orchestrator · Sydney, Australia" loading="lazy" />
+      </div>
+      <div>
+        <div class="card-face-label">Back · Registered business</div>
+        <img src="./Vcard_Back.png" alt="Artigellence Augmentation Aggregator · ABN 83 988 690 362" loading="lazy" />
+      </div>
+    </div>
+
+    <div class="card-modal-footer">
+      <span class="hint">Tap outside or press ESC to close</span>
+      <div class="actions">
+        <a href="./Vcard_Front.png" download="Raj_Singh_Card_Front.png">↓ Front</a>
+        <a href="./Vcard_Back.png" download="Raj_Singh_Card_Back.png">↓ Back</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+//  REFERRAL LANDING · CLIENT LOGIC
+// ------------------------------------------------------------
+//  1. Capture ?ref= from URL  → hidden field + optional badge
+//  2. Reveal-on-scroll for sections
+//  3. Form submission → posts to FORM_ENDPOINT (Formspree/Web3Forms/etc)
+//
+//  TO ACTIVATE THE FORM (5 min, free):
+//    1. Sign up at https://formspree.io  (or web3forms.com / getform.io)
+//    2. Create a form → copy your POST URL
+//       Format:  https://formspree.io/f/xxxxxxxx
+//    3. Replace FORM_ENDPOINT below with that URL.
+//
+//  Until configured, submissions show the success state and are
+//  logged to the browser console. They are NOT delivered anywhere.
+// ============================================================
+
+const FORM_ENDPOINT = null;  // e.g. "https://formspree.io/f/xxxxxxxx"
+
+/* ---------- Capture referral tag ---------- */
+(function captureReferrer() {
+  const params = new URLSearchParams(window.location.search);
+  const ref = params.get('ref') || params.get('r') || params.get('via');
+  if (ref) {
+    const cleaned = ref.replace(/[^a-zA-Z0-9_\-\.\s]/g, '').slice(0, 80);
+    document.getElementById('referrer').value = cleaned;
+
+    // Surface a small "Forwarded by" badge in the hero
+    const fb = document.getElementById('forwarded-by');
+    const fn = document.getElementById('forwarded-name');
+    if (fb && fn && cleaned) {
+      // Make the name look human (replace - and _ with spaces, title-case)
+      const display = cleaned.replace(/[-_]+/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+      fn.textContent = display;
+      fb.classList.add('show');
+    }
+  }
+})();
+
+/* ---------- Reveal on scroll ---------- */
+(function reveals() {
+  const els = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window)) {
+    els.forEach(e => e.classList.add('in'));
+    return;
+  }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+  els.forEach(e => io.observe(e));
+})();
+
+/* ---------- Business card modal ---------- */
+(function cardModal() {
+  const modal = document.getElementById('card-modal');
+  if (!modal) return;
+
+  const open = () => {
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('modal-open');
+  };
+  const close = () => {
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('modal-open');
+  };
+
+  document.querySelectorAll('[data-action="open-card"]').forEach(el => {
+    el.addEventListener('click', (e) => { e.preventDefault(); open(); });
+  });
+  document.querySelectorAll('[data-action="close-card"]').forEach(el => {
+    el.addEventListener('click', (e) => { e.preventDefault(); close(); });
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('open')) close();
+  });
+})();
+
+/* ---------- Form submission ---------- */
+(function form() {
+  const form = document.getElementById('briefing-form');
+  const btn  = document.getElementById('submit-btn');
+  const okEl = document.getElementById('result-ok');
+  const errEl = document.getElementById('result-err');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    okEl.classList.remove('show');
+    errEl.classList.remove('show');
+
+    // Honeypot check — silent drop for bots
+    if (form.website.value) return;
+
+    // Native validation
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    document.getElementById('submitted_at').value = new Date().toISOString();
+
+    const data = new FormData(form);
+    const payload = Object.fromEntries(data.entries());
+    payload._subject = `New briefing request · ${payload.name} · ref:${payload.referrer}`;
+
+    btn.disabled = true;
+    btn.querySelector('.arrow').textContent = '…';
+
+    if (FORM_ENDPOINT) {
+      // Endpoint configured — post the submission
+      try {
+        const resp = await fetch(FORM_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        if (resp.ok) {
+          okEl.classList.add('show');
+          form.reset();
+          okEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else {
+          throw new Error('Endpoint returned ' + resp.status);
+        }
+      } catch (err) {
+        console.error('Form submission failed:', err);
+        errEl.classList.add('show');
+        errEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    } else {
+      // No endpoint configured — show success state, log payload
+      console.group('%c⚠ Form endpoint not configured', 'color:#c9a961;font-weight:bold');
+      console.log('Submission captured locally but NOT delivered. Configure FORM_ENDPOINT in index.html to deliver.');
+      console.table(payload);
+      console.groupEnd();
+      okEl.classList.add('show');
+      form.reset();
+      okEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    btn.disabled = false;
+    btn.querySelector('.arrow').textContent = '→';
+  });
+})();
+</script>
+
+</body>
+</html>
