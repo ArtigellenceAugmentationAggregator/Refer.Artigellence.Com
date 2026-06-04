@@ -1046,6 +1046,150 @@ button.submit-btn:hover .arrow { transform: translateX(5px); }
   line-height: 1.8;
 }
 
+/* ---------- LINK BUILDER ---------- */
+.link-builder {
+  display: flex;
+  gap: 10px;
+  max-width: 620px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+  align-items: stretch;
+}
+.lb-input-row {
+  flex: 1 1 380px;
+  display: flex;
+  align-items: stretch;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  background: rgba(0,0,0,0.3);
+  overflow: hidden;
+  transition: all .25s ease;
+  min-width: 0;
+}
+.lb-input-row:focus-within {
+  border-color: var(--gold);
+  background: rgba(201,169,97,0.05);
+  box-shadow: 0 0 0 3px rgba(201,169,97,0.12);
+}
+.lb-prefix {
+  padding: 14px 4px 14px 16px;
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--ink-mute);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  user-select: none;
+  display: flex;
+  align-items: center;
+}
+#lb-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 14px 14px 14px 0;
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gold-bright);
+  outline: none;
+  min-width: 0;
+  width: 100%;
+  letter-spacing: 0.01em;
+}
+#lb-input::placeholder {
+  color: var(--ink-faint);
+  font-weight: 400;
+}
+.lb-copy {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 22px;
+  background: var(--gold);
+  border: 1px solid var(--gold);
+  color: var(--bg);
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 12.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all .25s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.lb-copy:hover:not(:disabled) {
+  background: var(--gold-bright);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 22px -8px rgba(201,169,97,0.5);
+}
+.lb-copy:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  background: transparent;
+  color: var(--gold);
+}
+.lb-copy.copied {
+  background: var(--teal);
+  border-color: var(--teal);
+  color: var(--bg);
+}
+.lb-copy-icon { font-size: 14px; line-height: 1; }
+
+.lb-preview {
+  max-width: 620px;
+  margin: 16px auto 0;
+  padding: 14px 18px;
+  background: rgba(255,255,255,0.025);
+  border: 1px dashed var(--border-soft);
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: left;
+}
+.lb-preview-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+.lb-preview-url {
+  font-family: var(--mono);
+  font-size: 14px;
+  color: var(--teal-bright);
+  word-break: break-all;
+  font-weight: 500;
+  background: none;
+  padding: 0;
+  letter-spacing: 0;
+}
+
+.lb-fallback {
+  margin-top: 20px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+.lb-fallback a {
+  color: var(--teal);
+  border-bottom: 1px dotted var(--teal-soft);
+  margin-left: 4px;
+  transition: all .2s ease;
+}
+.lb-fallback a:hover { color: var(--gold-bright); border-bottom-color: var(--gold-soft); }
+
+@media (max-width: 580px) {
+  .lb-input-row { flex-basis: 100%; }
+  .lb-prefix { font-size: 11px; padding: 12px 2px 12px 12px; }
+  #lb-input { font-size: 13px; padding: 12px 10px 12px 0; }
+  .lb-copy { width: 100%; padding: 14px 22px; }
+}
+
 /* ---------- SECTION: FOUNDER CARD ---------- */
 .founder {
   border-top: 1px solid var(--border-soft);
@@ -1911,11 +2055,29 @@ body.modal-open { overflow: hidden; }
     </div>
 
     <div class="refer-cta reveal d3">
-      <span class="rc-eyebrow">Want your link?</span>
-      <a href="mailto:raj@artigellence.com?subject=Referral%20partner%20link%20request&amp;body=Hi%20Raj%2C%0A%0AI'd%20like%20a%20personalised%20referral%20link.%0A%0AName%3A%20%0AHow%20I%20know%20you%3A%20" class="rc-btn">
-        Email me — get your link
-        <span class="arrow">→</span>
-      </a>
+      <span class="rc-eyebrow">Build your link · instant</span>
+
+      <div class="link-builder">
+        <div class="lb-input-row">
+          <span class="lb-prefix">refer.artigellence.com/?ref=</span>
+          <input type="text" id="lb-input" placeholder="your-name" autocomplete="off" spellcheck="false" maxlength="40" aria-label="Your referral code" />
+        </div>
+        <button type="button" class="lb-copy" id="lb-copy" disabled>
+          <span class="lb-copy-icon" aria-hidden="true">⧉</span>
+          <span class="lb-copy-label">Copy link</span>
+        </button>
+      </div>
+
+      <div class="lb-preview" id="lb-preview" aria-live="polite">
+        <span class="lb-preview-label">Your link</span>
+        <code class="lb-preview-url" id="lb-preview-url">refer.artigellence.com/?ref=your-name</code>
+      </div>
+
+      <p class="lb-fallback">
+        Want a custom code or have questions?
+        <a href="mailto:raj@artigellence.com?subject=Referral%20partner%20link%20request&amp;body=Hi%20Raj%2C%0A%0AI'd%20like%20a%20personalised%20referral%20link.%0A%0AName%3A%20%0AHow%20I%20know%20you%3A%20">Email me directly →</a>
+      </p>
+
       <p class="refer-footnote">
         ◆ Anti-extractive · Human-governed · One-time per referred client · Paid on actuals, not promises
       </p>
@@ -2146,6 +2308,80 @@ const FORM_ENDPOINT = null;  // e.g. "https://formspree.io/f/xxxxxxxx"
   });
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && modal.classList.contains('open')) close();
+  });
+})();
+
+/* ---------- Link builder ---------- */
+(function linkBuilder() {
+  const input    = document.getElementById('lb-input');
+  const previewUrl = document.getElementById('lb-preview-url');
+  const copyBtn  = document.getElementById('lb-copy');
+  const copyLabel = copyBtn ? copyBtn.querySelector('.lb-copy-label') : null;
+  if (!input || !previewUrl || !copyBtn) return;
+
+  const sanitize = (raw) => {
+    return raw
+      .toLowerCase()
+      .replace(/\s+/g, '-')         // spaces → hyphens
+      .replace(/[^a-z0-9\-]/g, '')  // strip everything except a-z, 0-9, hyphen
+      .replace(/-+/g, '-')          // collapse multi-hyphens
+      .replace(/^-+|-+$/g, '')      // trim leading/trailing hyphens
+      .slice(0, 40);
+  };
+
+  const buildFullUrl = (slug) => `https://refer.artigellence.com/?ref=${slug}`;
+  const buildDisplay = (slug) => `refer.artigellence.com/?ref=${slug}`;
+
+  let lastSlug = '';
+
+  const update = () => {
+    const slug = sanitize(input.value);
+    if (slug) {
+      previewUrl.textContent = buildDisplay(slug);
+      copyBtn.disabled = false;
+      lastSlug = slug;
+    } else {
+      previewUrl.textContent = 'refer.artigellence.com/?ref=your-name';
+      copyBtn.disabled = true;
+      lastSlug = '';
+    }
+    // Reset copied state if user keeps typing
+    if (copyBtn.classList.contains('copied')) {
+      copyBtn.classList.remove('copied');
+      if (copyLabel) copyLabel.textContent = 'Copy link';
+    }
+  };
+
+  input.addEventListener('input', update);
+
+  copyBtn.addEventListener('click', async () => {
+    if (!lastSlug) return;
+    const fullUrl = buildFullUrl(lastSlug);
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(fullUrl);
+      } else {
+        // Fallback for non-HTTPS or older browsers
+        const ta = document.createElement('textarea');
+        ta.value = fullUrl;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.focus();
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+      }
+      copyBtn.classList.add('copied');
+      if (copyLabel) copyLabel.textContent = 'Copied ✓';
+      setTimeout(() => {
+        copyBtn.classList.remove('copied');
+        if (copyLabel) copyLabel.textContent = 'Copy link';
+      }, 2200);
+    } catch (err) {
+      console.error('Copy failed:', err);
+      if (copyLabel) copyLabel.textContent = 'Press Ctrl+C';
+    }
   });
 })();
 
